@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:news_api/views/article_view.dart';
+import 'package:flutter_news/views/article_view.dart';
 
 class BlogTile extends StatelessWidget {
 
   final String imgUrl,title,description,url;
-  BlogTile({@required this.imgUrl,@required this.title,@required this.description,@required this.url});
+  const BlogTile({super.key, required this.imgUrl,required this.title,required this.description,required this.url});
 
   @override
   Widget build(BuildContext context) {
@@ -16,22 +16,22 @@ class BlogTile extends StatelessWidget {
         ));
       },
       child: Container(
-        margin: EdgeInsets.only(bottom: 16),
+        margin: const EdgeInsets.only(bottom: 16),
         child: Column(
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(6),
               child: Image.network(imgUrl),),
-            SizedBox(height: 6,),
+            const SizedBox(height: 6,),
             Text(title,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w700,
               color: Colors.black54
             ),),
-            SizedBox(height: 8,),
+            const SizedBox(height: 8,),
             Text(description,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.grey
             ),)
           ],

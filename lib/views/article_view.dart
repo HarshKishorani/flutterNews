@@ -1,20 +1,38 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class ArticleView extends StatefulWidget {
 
   final String blogUrl;
-  ArticleView({this.blogUrl});
+  const ArticleView({super.key, required this.blogUrl});
 
   @override
-  _ArticleViewState createState() => _ArticleViewState();
+  ArticleViewState createState() => ArticleViewState();
 }
 
-class _ArticleViewState extends State<ArticleView> {
+class ArticleViewState extends State<ArticleView> {
 
-  final Completer<WebViewController> _completer = Completer<WebViewController>();
+  // final Completer<WebViewController> _completer = Completer<WebViewController>();
+
+  late WebViewController controller = WebViewController()
+  ..setJavaScriptMode(JavaScriptMode.unrestricted)
+  ..setNavigationDelegate(
+    NavigationDelegate(
+      onProgress: (int progress) {
+        // Update loading bar.
+      },
+      onPageStarted: (String url) {},
+      onPageFinished: (String url) {},
+      onWebResourceError: (WebResourceError error) {},
+      onNavigationRequest: (NavigationRequest request) {
+        if (request.url.startsWith('https://www.youtube.com/')) {
+          return NavigationDecision.prevent;
+        }
+        return NavigationDecision.navigate;
+      },
+    ),
+  )
+  ..loadRequest(Uri.parse(widget.blogUrl));
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +40,7 @@ class _ArticleViewState extends State<ArticleView> {
       appBar: AppBar(
         elevation: 0.0,
         centerTitle: true,
-        title: Row(
+        title: const Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text('Flutter',
@@ -37,14 +55,15 @@ class _ArticleViewState extends State<ArticleView> {
           ],
         ),
       ),
-      body: Container(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height ,
         width: MediaQuery.of(context).size.width ,
-        child: WebView(
-          initialUrl: widget.blogUrl,
-          onWebViewCreated: ((WebViewController webViewController){
-            _completer.complete(webViewController);
-          }),
+        child: WebViewWidget(
+          controller: controller,
+          // initialUrl: widget.blogUrl,
+          // onWebViewCreated: ((WebViewController webViewController){
+          //   _completer.complete(webViewController);
+          // }),
         ),
       ),
     );

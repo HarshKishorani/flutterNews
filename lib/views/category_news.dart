@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:news_api/helper/news.dart';
-import 'package:news_api/models/article_model.dart';
-import 'package:news_api/widgets/blog_tile.dart';
+import 'package:flutter_news/helper/news.dart';
+import 'package:flutter_news/models/article_model.dart';
+import 'package:flutter_news/widgets/blog_tile.dart';
 
 class CategoryNews extends StatefulWidget {
 
-  final category;
-  CategoryNews({this.category});
+  final String category;
+  const CategoryNews({super.key,required this.category});
 
   @override
-  _CategoryNewsState createState() => _CategoryNewsState();
+  CategoryNewsState createState() => CategoryNewsState();
 }
 
-class _CategoryNewsState extends State<CategoryNews> {
+class CategoryNewsState extends State<CategoryNews> {
 
   List<ArticleModel> articles= [];
   bool _loading = true;
@@ -40,7 +40,7 @@ class _CategoryNewsState extends State<CategoryNews> {
       appBar: AppBar(
         elevation: 0.0,
         centerTitle: true,
-        title: Row(
+        title: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text('Flutter',
@@ -55,19 +55,18 @@ class _CategoryNewsState extends State<CategoryNews> {
           ],
         ),
       ),
-      body: _loading ? Center(
-        child: Container(
-            child: CircularProgressIndicator()),
+      body: _loading ? const Center(
+        child: CircularProgressIndicator(),
       ) :
       SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
               Container(
-                padding: EdgeInsets.only(top: 16),
+                padding: const EdgeInsets.only(top: 16),
                 child: ListView.builder(
-                    physics: ClampingScrollPhysics(),
+                    physics: const ClampingScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: articles.length,
                     itemBuilder: (context,index){

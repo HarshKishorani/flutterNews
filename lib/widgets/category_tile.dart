@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:news_api/views/category_news.dart';
+import 'package:flutter_news/views/category_news.dart';
 
 class CategoryTile extends StatelessWidget {
 
   final String imageUrl,categoryName;
-  CategoryTile({this.imageUrl, this.categoryName});
+  const CategoryTile({super.key, required this.imageUrl,required this.categoryName});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class CategoryTile extends StatelessWidget {
         ));
       },
       child: Container(
-        margin: EdgeInsets.only(right: 16),
+        margin: const EdgeInsets.only(right: 16),
         child: Stack(
           children: [
         ClipRRect(
@@ -37,7 +37,7 @@ class CategoryTile extends StatelessWidget {
               ),
               child: Text(
                 categoryName,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                   color: Colors.white
